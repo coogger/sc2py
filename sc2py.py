@@ -1,3 +1,6 @@
+from django.utils.text import slugify
+import requests
+
 class Sc2:
 
     def __init__(self,access_token):
@@ -10,16 +13,15 @@ class Sc2:
             [
                 ["vote",
                     {
-                        "voter":"{}",
-                        "author":"{}",
-                        "permlink":"{}",
-                        "weight":{}
+                        "voter":"%s",
+                        "author":"%s",
+                        "permlink":"%s",
+                        "weight":%s
                     }
                 ]
             ]
-        }""".format(voter,author,permlink,weight)
-        response = requests.post(self.sc2_broadcast, data = payload, headers = self.headers())
-        return response
+        }"""%(voter,author,permlink,weight)
+        return self.run(payload)
 
     def follow(follower,following):
         payload = """{
@@ -28,15 +30,14 @@ class Sc2:
                     ["custom_json",
                         {
                             "required_auths":[],
-                            "required_posting_auths":["{}"],
+                            "required_posting_auths":["%s"],
                             "id":"follow",
-                            "json":"[\\"follow\\",{\\"follower\\":\\"{}\\",\\"following\\":\\"{}\\",\\"what\\":[]}]"
+                            "json":"[\\"follow\\",{\\"follower\\":\\"%s\\",\\"following\\":\\"%s\\",\\"what\\":[]}]"
                         }
                     ]
                 ]
-        }""".format(follower,follower,following)
-        response = requests.post(self.sc2_broadcast, data = payload, headers = self.headers())
-        return response
+        }"""%(follower,follower,following)
+        return self.run(payload)
 
     def resteem(self, account, author, permlink):
         payload = """{
@@ -45,34 +46,37 @@ class Sc2:
                     ["custom_json",
                         {
                              "required_auths":[],
-                             "required_posting_auths":["{}"],
+                             "required_posting_auths":["%s"],
                              "id":"follow",
-                             "json":"[\\"reblog\\",{\\"account\\":\\"{}\\",\\"author\\":\\"{}\\",\\"permlink\\":\\"{}\\"}]"
+                             "json":"[\\"reblog\\",{\\"account\\":\\"%s\\",\\"author\\":\\"%s\\",\\"permlink\\":\\"%s\\"}]"
                         }
                     ]
                 ]
-        }""".format(account,account,author,permlink)
-        response = requests.post(self.sc2_broadcast, data = payload, headers = self.headers())
-        return response
+        }"""%(account,account,author,permlink)
+        return self.run(payload)
 
-    def post(self,parent_permlink,author,permlink,title,body,app,tags):
+    def post(self,author,title,body,tags):
+        permlink = slugify(title.lower())
         payload = """{
             "operations":
                  [
                       ["comment",
                            {
                                "parent_author":"",
-                               "parent_permlink":"{}",
-                               "author":"{}",
-                               "permlink":"{}",
-                               "title":"{}",
-                               "body":"{}",
-                               "json_metadata":"{\\"app\\":\\"{}\\",\\"tags\\":[\\"{}\\"]}"
+                               "parent_permlink":"%s",
+                               "author":"%s",
+                               "permlink":"%s",
+                               "title":"%s",
+                               "body":"%s",
+                               "json_metadata":"{\\"tags\\":[\\"%s\\"]}"
                             }
                       ]
                   ]
-        }""".format(parent_permlink,author,permlink,title,body,app,tags)
-        response = requests.post(self.sc2_broadcast, data = payload, headers = self.headers())
+        }"""%(tags[0],author,permlink,title,body,tags[0])
+        return self.run(payload)
+
+    def run(self, payload):
+        response = requests.post(self.sc2_broadcast, data = payload, headers = self.get_header())
         return response
 
     def get_header(self):

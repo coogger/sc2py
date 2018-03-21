@@ -56,7 +56,15 @@ class Sc2:
         return self.run(payload)
 
     def post(self,author,title,body,tags):
-        permlink = slugify(title.lower())
+        permlink = slugify(title.lower(), allow_unicode=True)
+        a = ""
+        tag_split = tags.split()
+        for i in tag_split:
+            if i == tag_split[-1]:
+                a+=r'\"%s\"'%(i)
+            else:
+                a+=r'\"%s\"'%(i)+","
+        tag_string = r""" "{\"tags\":[%s]}" """%(a)
         payload = """{
             "operations":
                  [
@@ -68,11 +76,11 @@ class Sc2:
                                "permlink":"%s",
                                "title":"%s",
                                "body":"%s",
-                               "json_metadata":"{\\"tags\\":[\\"%s\\"]}"
+                               "json_metadata":%s
                             }
                       ]
                   ]
-        }"""%(tags[0],author,permlink,title,body,tags[0])
+        }"""%(tag_split[0],author,permlink,title,body,tag_string)
         return self.run(payload)
 
     def run(self, payload):

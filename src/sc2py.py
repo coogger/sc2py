@@ -1,4 +1,3 @@
-from django.utils.text import slugify
 import requests
 
 class Sc2:
@@ -55,8 +54,7 @@ class Sc2:
         }"""%(account,account,author,permlink)
         return self.run(payload)
 
-    def post(self,author,title,body,tags):
-        permlink = slugify(title.lower(), allow_unicode=True)
+    def post(self,author,title,body,tags,permlink):
         a = ""
         tag_split = tags.split()
         for i in tag_split:
@@ -84,6 +82,7 @@ class Sc2:
         return self.run(payload)
 
     def run(self, payload):
+        payload = payload.encode(encoding='utf-8')
         response = requests.post(self.sc2_broadcast, data = payload, headers = self.get_header())
         return response
 

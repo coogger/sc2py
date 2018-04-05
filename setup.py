@@ -1,9 +1,9 @@
-from setuptools import find_packages, setup
+from setuptools import setup
 
 setup(
     name="sc2py",
     version = "0.01",
-    packages = find_packages("src"),
+    packages = ["sc2py"],
     description = "SteemConnect2 with pyhton",
     author = "Hakan Çelik",
     author_email = "hakancelik96@outlook.com",

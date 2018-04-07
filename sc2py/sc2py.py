@@ -16,7 +16,7 @@ class Sc2:
                         "voter":"{}".format(voter),
                         "author":"{}".format(author),
                         "permlink":"{}".format(permlink),
-                        "weight":weight
+                        "weight":weight * 100
                     }
                 ]
             ]
@@ -84,7 +84,7 @@ class Sc2:
     def run(self, payload):
         payload = json.dumps(payload).encode(encoding='utf-8')
         response = requests.post(self.sc2_broadcast, data = payload, headers = self.get_header())
-        return response.json()
+        return response
 
     def get_header(self):
         return{

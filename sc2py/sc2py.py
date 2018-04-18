@@ -55,26 +55,19 @@ class Sc2:
         }
         return self.run(payload)
 
-    def post(self,author,title,body,tags,permlink):
-        a = ""
-        tag_split = tags.split()
-        for i in tag_split:
-            if i == tag_split[-1]:
-                a+=r'"%s"'%(i)
-            else:
-                a+=r'"%s"'%(i)+","
+    def post(self,parent_permlink,author,permlink,title,body,json_metadata):
         payload = {
             "operations":
                  [
                       ["comment",
                            {
                                "parent_author":"",
-                               "parent_permlink":"{}".format(tag_split[0]),
+                               "parent_permlink":"{}".format(parent_permlink),
                                "author":"{}".format(author),
                                "permlink":"{}".format(permlink),
                                "title":"{}".format(title),
                                "body":"{}".format(body),
-                               "json_metadata":"{\"format\":\"markdown\",\"tags\":[%s"%(a)+"]}"
+                               "json_metadata":json.dumps(json_metadata)
                             }
                       ]
                   ]

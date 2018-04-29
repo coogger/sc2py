@@ -2,49 +2,173 @@
 SteemConnect2 with pyhton
 
 ## Getting Started
-For general information about SteemConnect V2 and setting up your app please see 
-this post from @noisy: 
+For general information about SteemConnect V2 and setting up your app please see
+this post from @noisy:
 - [How to configure SteemConnect v2 and use it with your application](https://busy.org/steemconnect/@noisy/how-to-configure-steemconnect-v2-and-use-it-with-your-application-how-it-works-and-how-it-is-different-from-v1)
-and this post 
+and this post
 - [ann-introducing-python-social-auth-steemconnect-library-integrate-steemconnect-v2-in-your-python-app-in-5-minutes-design-pack-as](https://steemit.com/steemconnect/@noisy/ann-introducing-python-social-auth-steemconnect-library-integrate-steemconnect-v2-in-your-python-app-in-5-minutes-design-pack-as)
 
-## Firstly
+### Installation
+`pip install sc2py`
+
+### update
+`pip install sc2py -U`
+
+## How to use it ?
+
+#### First let's include the library in our project
+
 ```python
-from sc2py import Sc2
-sc = Sc2(access_token = "user access key")
+from sc2py.sc2py import Sc2
+from sc2py.operations import Vote
+from sc2py.operations import Unfollow
+from sc2py.operations import Follow
+from sc2py.operations import Mute
+from sc2py.operations import Reblog
+from sc2py.operations import Comment
+from sc2py.operations import Comment_options
+from sc2py.operations import DeleteComment
+from sc2py.operations import ClaimRewardBalance
+from sc2py.operations import Operations
 ```
 
 ### Vote
-The vote() method will cast a vote on the specified post or comment from the current user:
+
+The Vote() method will cast a vote on the specified post or comment from the current user:
+
 ```python
-sc.vote(voter, author, permlink, weight)
+vote = Vote(voter:str, author:str, permlink:str, weight:int)
+json_data = Operations(json = vote.json).json
+response = Sc2(token = "your_access_token",data = json_data).run
+if response.status_code == 200:
+    print("Your post upvoted")
 ```
 Parameters:
 - voter: The Steem username of the current user.
 - author: The Steem username of the author of the post or comment.
 - permlink: The link to the post or comment on which to vote. This is the portion of the URL after the last "/". For example the "permlink" for this post: https://steemit.com/steem/@ned/announcing-smart-media-tokens-smts would be "announcing-smart-media-tokens-smts".
-- weight: The weight of the vote. 10000 equale a 100% vote.
+- weight: The weight of the vote. 100 equale a 100% vote.
 
+### Follow
 
-### post
-The post() method will share a post from the current user:
 ```python
-sc.post(parent_permlink,author,permlink,title,body,app,tags)
+follow = Follow(follower:str,following:str)
+json_data = Operations(json = follow.json).json
+response = Sc2(token = "your_access_token",data = json_data).run
+if response.status_code != 200:
+    print(response.text)
 ```
 
-Parameters:
-- parent_permlink: The Steem username of the current user.
-- app : busy, dlive so this parameter is your app name.
-- tags : post's tags of the current user. ex : ["coogger","tr","steem"] etc.
+### Unfollow
 
-
-
-### resteem
 ```python
-sc.resteem(account, author, permlink)
+unfollow = Unfollow(follower:str,following:str)
+json_data = Operations(json = unfollow.json).json
+response = Sc2(token = "your_access_token",data = json_data).run
+if response.status_code != 200:
+    print(response.text)
 ```
 
-### follow
+### Mute
+
 ```python
-sc.follow(follower,following)
+mute = Mute(follower:str,following:str)
+json_data = Operations(json = mute.json).json
+response = Sc2(token = "your_access_token",data = json_data).run
+if response.status_code != 200:
+    print(response.text)
+```
+
+### Reblog
+
+```python
+reblog = Reblog(account:str, author:str, permlink:str)
+json_data = Operations(json = reblog.json).json
+response = Sc2(token = "your_access_token",data = json_data).run
+if response.status_code != 200:
+    print(response.text)
+```
+
+
+### Comment
+
+```python
+comment = Comment(parent_permlink:str,author:str,permlink:str,title:str,body:str,json_metadata:dict)
+json_data = Operations(json = comment.json).json
+response = Sc2(token = "your_access_token",data = json_data).run
+if response.status_code != 200:
+    print(response.text)
+```
+
+### Comment with Comment_options
+
+```python
+comment = Comment(parent_permlink:str,author:str,permlink:str,title:str,body:str,json_metadata:dict)
+comment_options = Comment_options(
+            author:str,
+            permlink:str,
+            beneficiaries:dict to tuble or list
+            )
+jsons = comment.json+comment_options.json
+json_data = Operations(json = jsons).json
+response = Sc2(token = "your_access_token",data = json_data).run
+if response.status_code != 200:
+    print(response.text)
+```
+
+
+##### Example;
+
+```python
+json_metadata = {
+	"format":"markdown",
+    "tags":["coogger","python","django"],
+    "app":"coogger/1.3.0",
+    "community":"coogger",
+    "content":{
+    	 "status":approved,
+    	 "dor":"2.3,
+    	  "content_list":"coogger"
+		  },
+    "mod":{
+    		"user":"pars11",
+    		"cooggerup":True
+			},
+	}
+comment = Comment(
+	parent_permlink = "coogger",
+	author = "hakancelik",
+	permlink = "permlink",
+	title = "title",
+	body = "body",
+	json_metadata = json_metadata,
+)
+comment_options = Comment_options(
+	author = "pars11",
+	permlink = "permlink",
+	beneficiaries = {"account":"coogger","weight":100},{"account":"hakancelik","weight":100} # 100 meas 10%
+	)
+jsons = comment.json+comment_options.json
+op = Operations(json = jsons).json
+Sc2(token = "token",data = op).run
+```
+
+### DeleteComment
+
+```python
+delete_comment = DeleteComment(author:str, permlink:str)
+json_data = Operations(json = delete_comment.json).json
+response = Sc2(token = "your_access_token",data = json_data).run
+if response.status_code != 200:
+    print(response.text)
+```
+
+### ClaimRewardBalance
+
+```python
+claim_reward_balance = ClaimRewardBalance(account:str, reward_steem:str, reward_sbd:str, reward_vests:str)
+json_data = Operations(json = claim_reward_balance.json).json
+response = Sc2(token = "your_access_token",data = json_data).run
+if response.status_code != 200:
+    print(response.text)
 ```

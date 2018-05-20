@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="sc2py",
-    version = "0.6",
+    version = "0.7",
     packages = ["sc2py"],
     description = "SteemConnect2 with pyhton",
     author = "Hakan Çelik",
@@ -13,7 +13,6 @@ setup(
     include_package_data = True,
     install_requires = ["requests"],
     keywords = ["steem","steemit","sc2py","steemconnect","sc2"],
-    download_url = "https://github.com/hakancelik96/sc2py/archive/0.6.tar.gz",
     license = "MIT",
     classifiers=[
         'License :: OSI Approved :: MIT License',

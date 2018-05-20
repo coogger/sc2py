@@ -6,7 +6,12 @@ class Sc2:
         self.token = token
         self.data = data
         self.broadcast_api = "https://v2.steemconnect.com/api/broadcast"
-        self.headers = {"content-type": "application/json; charset=utf-8","Accept": "application/json","Authorization": self.token,"cache-control": "no-cache"}
+        self.headers = {
+            "content-type": "application/json; charset=utf-8",
+            "Accept": "application/json",
+            "Authorization": self.token,
+            "cache-control": "no-cache"
+        }
 
     @property
     def run(self):

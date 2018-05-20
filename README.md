@@ -12,13 +12,14 @@ and this post
 `pip install sc2py`
 
 ### update
-`pip install sc2py -U`
+`pip install sc2py - U`
 
 ## How to use it ?
 
 #### First let's include the library in our project
 
 ```python
+from sc2py.client import Client
 from sc2py.sc2py import Sc2
 from sc2py.operations import Vote
 from sc2py.operations import Unfollow
@@ -30,7 +31,17 @@ from sc2py.operations import Comment_options
 from sc2py.operations import DeleteComment
 from sc2py.operations import ClaimRewardBalance
 from sc2py.operations import Operations
+
+c = Client(client_id:str,redirect_url:str,code = False,scope = None)
+# scope is None : default scopes = "login,offline,vote,comment,delete_comment,comment_options,custom_json,claim_reward_balance"
+# if code is True,you can get refresh_token using ,get_refresh_token()
+c.get_authorize_url()
+c.get_refresh_token(code:str,app_secret:str)
+c.me(access_token:str)
 ```
+- [scopes](https://github.com/steemit/steemconnect/wiki/OAuth-2#scopes)
+- [wiki/OAuth-2#code-authorization-flow](https://github.com/steemit/steemconnect/wiki/OAuth-2#code-authorization-flow)
+
 
 ### Vote
 

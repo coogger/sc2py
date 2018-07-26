@@ -27,7 +27,6 @@ from sc2py.operations import Follow
 from sc2py.operations import Mute
 from sc2py.operations import Reblog
 from sc2py.operations import Comment
-from sc2py.operations import Comment_options
 from sc2py.operations import DeleteComment
 from sc2py.operations import ClaimRewardBalance
 from sc2py.operations import Operations
@@ -115,13 +114,22 @@ if response.status_code != 200:
 
 ```python
 comment = Comment(parent_permlink:str,author:str,permlink:str,title:str,body:str,json_metadata:dict)
-comment_options = Comment_options(
-            author:str,
-            permlink:str,
-            beneficiaries:dict to tuble or list
-            )
-jsons = comment.json+comment_options.json
-json_data = Operations(json = jsons).json
+comment_options = comment.comment_options(
+    beneficiaries,
+    max_accepted_payout:int, # default 100000.000
+    percent_steem_dollars:int, # default 10000
+    allow_votes:bool, # default True
+    allow_curation_rewards:bool #default True
+)
+
+"""beneficiaries ex :
+[
+  {"account":"coogger.wallet","weight":500},
+  {"account":"coogger.pay","weight":500},
+  {"account":"hakancelik","weight":500}
+]"""
+
+json_data = Operations(json = comment_options).json
 response = Sc2(token = "your_access_token",data = json_data).run
 if response.status_code != 200:
     print(response.text)

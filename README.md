@@ -135,43 +135,6 @@ if response.status_code != 200:
     print(response.text)
 ```
 
-
-##### Example;
-
-```python
-json_metadata = {
-	"format":"markdown",
-    "tags":["coogger","python","django"],
-    "app":"coogger/1.3.0",
-    "community":"coogger",
-    "content":{
-    	 "status":approved,
-    	 "dor":"2.3,
-    	  "content_list":"coogger"
-		  },
-    "mod":{
-    		"user":"pars11",
-    		"cooggerup":True
-			},
-	}
-comment = Comment(
-	parent_permlink = "coogger",
-	author = "hakancelik",
-	permlink = "permlink",
-	title = "title",
-	body = "body",
-	json_metadata = json_metadata,
-)
-comment_options = Comment_options(
-	author = "pars11",
-	permlink = "permlink",
-	beneficiaries = {"account":"coogger","weight":100},{"account":"hakancelik","weight":100} # 100 meas 10%
-	)
-jsons = comment.json+comment_options.json
-op = Operations(json = jsons).json
-Sc2(token = "token",data = op).run
-```
-
 ### DeleteComment
 
 ```python

@@ -89,8 +89,7 @@ class Comment:
 
     @property
     def json(self):
-        return [
-            "comment",
+        return ["comment",
                 {
                     "parent_author":"",
                     "parent_permlink":"{}".format(self.parent_permlink),
@@ -101,44 +100,31 @@ class Comment:
                     "json_metadata":json.dumps(self.json_metadata)
                 }],
 
-class Comment_options:
-
-    def __init__(self,author,
-        permlink,
-        beneficiaries,
+    def comment_options(self,beneficiaries,
         max_accepted_payout = 100000.000,
         percent_steem_dollars = 10000,
         allow_votes = True,
-        allow_curation_rewards = True
-        ):
-        self.author = author
-        self.permlink = permlink
-        self.beneficiaries = beneficiaries
-        self.max_accepted_payout = max_accepted_payout
-        self.percent_steem_dollars = percent_steem_dollars
-        self.allow_votes = allow_votes
-        self.allow_curation_rewards = allow_curation_rewards
-
-    @property
-    def json(self):
-        return [
-            "comment_options",
+        allow_curation_rewards = True):
+        return ["comment",
+            {
+                "parent_author":"",
+                "parent_permlink":"{}".format(self.parent_permlink),
+                "author":"{}".format(self.author),
+                "permlink":"{}".format(self.permlink),
+                "title":"{}".format(self.title),
+                "body":"{}".format(self.body),
+                "json_metadata":json.dumps(self.json_metadata)
+                }],["comment_options",
                 {
                     "author":"{}".format(self.author),
                     "permlink":"{}".format(self.permlink),
-                    "max_accepted_payout":"{} SBD".format(self.max_accepted_payout),
-                    "percent_steem_dollars":self.percent_steem_dollars,
-                    "allow_votes":self.allow_votes,
-                    "allow_curation_rewards":self.allow_curation_rewards,
-                    "extensions":[
-                        [
-                            0,
-                                {
-                                    "beneficiaries":[self.beneficiaries]
-                                }
-                        ]
-                    ]
-                }],
+                    "max_accepted_payout":"100000.000 SBD",
+                    "percent_steem_dollars":10000,
+                    "allow_votes":True,
+                    "allow_curation_rewards":True,
+                    "extensions":[[0,{"beneficiaries":beneficiaries}]]
+                }]
+
 
 class DeleteComment:
 

@@ -8,6 +8,8 @@ this post from @noisy:
 and this post
 - [ann-introducing-python-social-auth-steemconnect-library-integrate-steemconnect-v2-in-your-python-app-in-5-minutes-design-pack-as](https://steemit.com/steemconnect/@noisy/ann-introducing-python-social-auth-steemconnect-library-integrate-steemconnect-v2-in-your-python-app-in-5-minutes-design-pack-as)
 
+- [Django application - django_steemconnect](https://github.com/hakancelik96/django_steemconnect)
+
 ### Installation
 `pip install sc2py`
 

@@ -8,6 +8,8 @@ this post from @noisy:
 and this post
 - [ann-introducing-python-social-auth-steemconnect-library-integrate-steemconnect-v2-in-your-python-app-in-5-minutes-design-pack-as](https://steemit.com/steemconnect/@noisy/ann-introducing-python-social-auth-steemconnect-library-integrate-steemconnect-v2-in-your-python-app-in-5-minutes-design-pack-as)
 
+- [Django application - django_steemconnect](https://github.com/hakancelik96/django_steemconnect)
+
 ### Installation
 `pip install sc2py`
 
@@ -31,11 +33,11 @@ from sc2py.operations import DeleteComment
 from sc2py.operations import ClaimRewardBalance
 from sc2py.operations import Operations
 
-c = Client(client_id:str,redirect_url:str,code = False,scope = None)
+c = Client(client_id:str, redirect_url:str, code=False, scope=None)
 # scope is None : default scopes = "login,offline,vote,comment,delete_comment,comment_options,custom_json,claim_reward_balance"
 # if code is True,you can get refresh_token using ,get_refresh_token()
 c.get_authorize_url()
-c.get_refresh_token(code:str,app_secret:str)
+c.get_refresh_token(code:str, app_secret:str)
 c.me(access_token:str)
 ```
 - [scopes](https://github.com/steemit/steemconnect/wiki/OAuth-2#scopes)
@@ -48,8 +50,8 @@ The Vote() method will cast a vote on the specified post or comment from the cur
 
 ```python
 vote = Vote(voter:str, author:str, permlink:str, weight:int)
-json_data = Operations(json = vote.json).json
-response = Sc2(token = "your_access_token",data = json_data).run
+json_data = Operations(json=vote.json).json
+response = Sc2(token="your_access_token", data=json_data).run
 if response.status_code == 200:
     print("Your post upvoted")
 ```
@@ -63,8 +65,8 @@ Parameters:
 
 ```python
 follow = Follow(follower:str,following:str)
-json_data = Operations(json = follow.json).json
-response = Sc2(token = "your_access_token",data = json_data).run
+json_data = Operations(json=follow.json).json
+response = Sc2(token="your_access_token", data=json_data).run
 if response.status_code != 200:
     print(response.text)
 ```
@@ -73,8 +75,8 @@ if response.status_code != 200:
 
 ```python
 unfollow = Unfollow(follower:str,following:str)
-json_data = Operations(json = unfollow.json).json
-response = Sc2(token = "your_access_token",data = json_data).run
+json_data = Operations(json=unfollow.json).json
+response = Sc2(token="your_access_token", data=json_data).run
 if response.status_code != 200:
     print(response.text)
 ```
@@ -83,8 +85,8 @@ if response.status_code != 200:
 
 ```python
 mute = Mute(follower:str,following:str)
-json_data = Operations(json = mute.json).json
-response = Sc2(token = "your_access_token",data = json_data).run
+json_data = Operations(json=mute.json).json
+response = Sc2(token="your_access_token", data=json_data).run
 if response.status_code != 200:
     print(response.text)
 ```
@@ -93,8 +95,8 @@ if response.status_code != 200:
 
 ```python
 reblog = Reblog(account:str, author:str, permlink:str)
-json_data = Operations(json = reblog.json).json
-response = Sc2(token = "your_access_token",data = json_data).run
+json_data = Operations(json=reblog.json).json
+response = Sc2(token="your_access_token", data=json_data).run
 if response.status_code != 200:
     print(response.text)
 ```
@@ -104,8 +106,8 @@ if response.status_code != 200:
 
 ```python
 comment = Comment(parent_permlink:str,author:str,permlink:str,title:str,body:str,json_metadata:dict)
-json_data = Operations(json = comment.json).json
-response = Sc2(token = "your_access_token",data = json_data).run
+json_data = Operations(json=comment.json).json
+response = Sc2(token="your_access_token", data=json_data).run
 if response.status_code != 200:
     print(response.text)
 ```
@@ -113,7 +115,7 @@ if response.status_code != 200:
 ### Comment with Comment_options
 
 ```python
-comment = Comment(parent_permlink:str,author:str,permlink:str,title:str,body:str,json_metadata:dict)
+comment = Comment(parent_permlink:str, author:str, permlink:str, title:str, body:str, json_metadata:dict)
 comment_options = comment.comment_options(
     beneficiaries,
     max_accepted_payout:int, # default 100000.000
@@ -129,8 +131,8 @@ comment_options = comment.comment_options(
   {"account":"hakancelik","weight":500}
 ]"""
 
-json_data = Operations(json = comment_options).json
-response = Sc2(token = "your_access_token",data = json_data).run
+json_data = Operations(json=comment_options).json
+response = Sc2(token="your_access_token", data=json_data).run
 if response.status_code != 200:
     print(response.text)
 ```
@@ -139,8 +141,8 @@ if response.status_code != 200:
 
 ```python
 delete_comment = DeleteComment(author:str, permlink:str)
-json_data = Operations(json = delete_comment.json).json
-response = Sc2(token = "your_access_token",data = json_data).run
+json_data = Operations(json=delete_comment.json).json
+response = Sc2(token="your_access_token", data=json_data).run
 if response.status_code != 200:
     print(response.text)
 ```
@@ -149,8 +151,8 @@ if response.status_code != 200:
 
 ```python
 claim_reward_balance = ClaimRewardBalance(account:str, reward_steem:str, reward_sbd:str, reward_vests:str)
-json_data = Operations(json = claim_reward_balance.json).json
-response = Sc2(token = "your_access_token",data = json_data).run
+json_data = Operations(json=claim_reward_balance.json).json
+response = Sc2(token="your_access_token", data=json_data).run
 if response.status_code != 200:
     print(response.text)
 ```

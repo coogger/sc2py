@@ -1,7 +1,8 @@
 import json
 
+
 class Vote:
-    def __init__(self, voter, author, permlink, weight = 100):
+    def __init__(self, voter, author, permlink, weight=100):
         self.voter = voter
         self.author = author
         self.permlink = permlink
@@ -12,14 +13,15 @@ class Vote:
         return [
             "vote",
                 {
-                    "voter":"{}".format(self.voter),
-                    "author":"{}".format(self.author),
-                    "permlink":"{}".format(self.permlink),
-                    "weight":self.weight * 100
+                    "voter": "{}".format(self.voter),
+                    "author": "{}".format(self.author),
+                    "permlink": "{}".format(self.permlink),
+                    "weight": self.weight * 100
                 }],
 
+
 class Unfollow:
-    def __init__(self,follower,following,what = []):
+    def __init__(self, follower, following, what=[]):
         self.follower = follower
         self.following = following
         self.what = what
@@ -29,28 +31,31 @@ class Unfollow:
         follow_json = [
             "follow",
                 {
-                    "follower":"{}".format(self.follower),
-                    "following":"{}".format(self.following),
-                    "what":["{}".format(self.what)]
+                    "follower": "{}".format(self.follower),
+                    "following": "{}".format(self.following),
+                    "what": ["{}".format(self.what)]
                 }]
         return [
             "custom_json",
                 {
-                    "required_auths":[],
+                    "required_auths": [],
                     "required_posting_auths":["{}".format(self.follower)],
                     "id":"follow",
                     "json":json.dumps(follow_json)
                 }],
+
 
 class Follow(Unfollow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.what = "blog"
 
+
 class Mute(Unfollow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.what = "ignore"
+
 
 class Reblog:
 
@@ -64,22 +69,24 @@ class Reblog:
         reblog_json = [
             "reblog",
                 {
-                    "account":"{}".format(self.account),
-                    "author":"{}".format(self.author),
-                    "permlink":"{}".format(self.permlink)
+                    "account": "{}".format(self.account),
+                    "author": "{}".format(self.author),
+                    "permlink": "{}".format(self.permlink)
                 }]
         return [
             "custom_json",
             {
-                "required_auths":[],
+                "required_auths": [],
                 "required_posting_auths":["{}".format(self.account)],
                 "id":"follow",
                 "json":json.dumps(reblog_json)
             }],
 
+
 class Comment:
 
-    def __init__(self,parent_permlink,author,permlink,title,body,json_metadata):
+    def __init__(self, parent_permlink, author,
+                permlink, title, body, json_metadata):
         self.parent_permlink = parent_permlink
         self.author = author
         self.permlink = permlink
@@ -91,38 +98,38 @@ class Comment:
     def json(self):
         return ["comment",
                 {
-                    "parent_author":"",
-                    "parent_permlink":"{}".format(self.parent_permlink),
-                    "author":"{}".format(self.author),
-                    "permlink":"{}".format(self.permlink),
-                    "title":"{}".format(self.title),
-                    "body":"{}".format(self.body),
-                    "json_metadata":json.dumps(self.json_metadata)
+                    "parent_author": "",
+                    "parent_permlink": "{}".format(self.parent_permlink),
+                    "author": "{}".format(self.author),
+                    "permlink": "{}".format(self.permlink),
+                    "title": "{}".format(self.title),
+                    "body": "{}".format(self.body),
+                    "json_metadata": json.dumps(self.json_metadata)
                 }],
 
-    def comment_options(self,beneficiaries,
-        max_accepted_payout = 100000.000,
-        percent_steem_dollars = 10000,
-        allow_votes = True,
-        allow_curation_rewards = True):
+    def comment_options(self, beneficiaries,
+        max_accepted_payout=100000.000,
+        percent_steem_dollars=10000,
+        allow_votes=True,
+        allow_curation_rewards=True):
         return ["comment",
             {
-                "parent_author":"",
-                "parent_permlink":"{}".format(self.parent_permlink),
-                "author":"{}".format(self.author),
-                "permlink":"{}".format(self.permlink),
-                "title":"{}".format(self.title),
-                "body":"{}".format(self.body),
-                "json_metadata":json.dumps(self.json_metadata)
-                }],["comment_options",
+                "parent_author": "",
+                "parent_permlink": "{}".format(self.parent_permlink),
+                "author": "{}".format(self.author),
+                "permlink": "{}".format(self.permlink),
+                "title": "{}".format(self.title),
+                "body": "{}".format(self.body),
+                "json_metadata": json.dumps(self.json_metadata)
+                }], ["comment_options",
                 {
-                    "author":"{}".format(self.author),
-                    "permlink":"{}".format(self.permlink),
-                    "max_accepted_payout":"100000.000 SBD",
-                    "percent_steem_dollars":10000,
-                    "allow_votes":True,
-                    "allow_curation_rewards":True,
-                    "extensions":[[0,{"beneficiaries":beneficiaries}]]
+                    "author": "{}".format(self.author),
+                    "permlink": "{}".format(self.permlink),
+                    "max_accepted_payout": "100000.000 SBD",
+                    "percent_steem_dollars": 10000,
+                    "allow_votes": True,
+                    "allow_curation_rewards": True,
+                    "extensions": [[0, {"beneficiaries": beneficiaries}]]
                 }]
 
 
@@ -140,6 +147,7 @@ class DeleteComment:
                 "permlink": self.permlink
             }
         ],
+
 
 class ClaimRewardBalance:
 
@@ -160,10 +168,11 @@ class ClaimRewardBalance:
             }
         ],
 
+
 class Operations:
 
-    def __init__(self,json):
-        self.payload = {"operations":json}
+    def __init__(self, json):
+        self.payload = {"operations": json}
 
     @property
     def json(self):

@@ -19,30 +19,42 @@ class Vote:
                     "weight": self.weight * 100
                 }],
 
+class CustomJson:
+    def __init__(self, required_posting_auths, id_, json_):
+        self.required_posting_auths = required_posting_auths
+        self.id_ = id_
+        self.json_ = json_
+
+
+    @property
+    def json(self):
+        return [
+            "custom_json",
+                {
+                    "required_auths": [],
+                    "required_posting_auths":["{}".format(self.required_posting_auths)],
+                    "id":"{}".format(self.id_),
+                    "json":json.dumps(self.json_)
+                }],
 
 class Unfollow:
     def __init__(self, follower, following, what=[]):
         self.follower = follower
         self.following = following
         self.what = what
+        self.custom_operation_json = [
+            "follow",
+            {
+                "follower": "{}".format(follower),
+                "following": "{}".format(following),
+                "what": ["{}".format(what)]
+             }]
 
     @property
     def json(self):
-        follow_json = [
-            "follow",
-                {
-                    "follower": "{}".format(self.follower),
-                    "following": "{}".format(self.following),
-                    "what": ["{}".format(self.what)]
-                }]
-        return [
-            "custom_json",
-                {
-                    "required_auths": [],
-                    "required_posting_auths":["{}".format(self.follower)],
-                    "id":"follow",
-                    "json":json.dumps(follow_json)
-                }],
+        return CustomJson(required_posting_auths=self.follower,
+                          id_="follow",
+                          json_=self.custom_operation_json).json
 
 
 class Follow(Unfollow):
@@ -63,24 +75,19 @@ class Reblog:
         self.account = account
         self.author = author
         self.permlink = permlink
-
-    @property
-    def json(self):
-        reblog_json = [
+        self.custom_operation_json = [
             "reblog",
                 {
                     "account": "{}".format(self.account),
                     "author": "{}".format(self.author),
                     "permlink": "{}".format(self.permlink)
                 }]
-        return [
-            "custom_json",
-            {
-                "required_auths": [],
-                "required_posting_auths":["{}".format(self.account)],
-                "id":"follow",
-                "json":json.dumps(reblog_json)
-            }],
+
+    @property
+    def json(self):
+        return CustomJson(required_posting_auths=self.account,
+                          id_="follow",
+                          json_=self.custom_operation_json).json
 
 
 class Comment:

@@ -24,6 +24,7 @@ and this post
 from sc2py.client import Client
 from sc2py.sc2py import Sc2
 from sc2py.operations import Vote
+from sc2py.operations import CustomJson
 from sc2py.operations import Unfollow
 from sc2py.operations import Follow
 from sc2py.operations import Mute
@@ -60,6 +61,16 @@ Parameters:
 - author: The Steem username of the author of the post or comment.
 - permlink: The link to the post or comment on which to vote. This is the portion of the URL after the last "/". For example the "permlink" for this post: https://steemit.com/steem/@ned/announcing-smart-media-tokens-smts would be "announcing-smart-media-tokens-smts".
 - weight: The weight of the vote. 100 equale a 100% vote.
+
+### CustomJson
+
+```python
+custom_json = CustomJson(required_posting_auths:str, id_:str json_:json)
+json_data = Operations(json=custom_json.json).json
+response = Sc2(token="your_access_token", data=json_data).run
+if response.status_code != 200:
+    print(response.text)
+```
 
 ### Follow
 

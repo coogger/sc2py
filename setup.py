@@ -1,15 +1,15 @@
 from setuptools import setup
 
 setup(
-    name="sc2py",
+    name="steem-connect",
     version = "0.7.2",
-    packages = ["sc2py"],
-    description = "SteemConnect2 with pyhton",
+    packages = ["steemconnect"],
+    description = "SteemConnect with pyhton",
     author = "Hakan Çelik",
     author_email = "hakancelik96@outlook.com",
-    url = "https://github.com/hakancelik96/sc2py",
+    url = "https://github.com/hakancelik96/steemconnect",
     python_requires='>=3.5.0',
-    py_modules=['sc2py'],
+    py_modules=['steemconnect'],
     include_package_data = True,
     install_requires = ["requests"],
     keywords = ["steem","steemit","sc2py","steemconnect","sc2"],

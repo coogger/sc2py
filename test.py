@@ -1,5 +1,5 @@
-from operations import *
-from steemconnect import SteemConnect
+from steemconnect.operations import *
+from steemconnect.steemconnect import SteemConnect
 
 class Token:
     def __init__(self):

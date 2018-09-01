@@ -1,5 +1,5 @@
-# sc2py
-SteemConnect2 with pyhton
+# steemconnect
+SteemConnect with pyhton
 
 ## Getting Started
 For general information about SteemConnect V2 and setting up your app please see
@@ -11,28 +11,28 @@ and this post
 - [Django application - django_steemconnect](https://github.com/hakancelik96/django_steemconnect)
 
 ### Installation
-`pip install sc2py`
+`pip install steem-connect`
 
 ### update
-`pip install sc2py - U`
+`pip install steem-connect - U`
 
 ## How to use it ?
 
 #### First let's include the library in our project
 
 ```python
-from sc2py.client import Client
-from sc2py.steemconnect import SteemConnect
-from sc2py.operations import Vote
-from sc2py.operations import CustomJson
-from sc2py.operations import Unfollow
-from sc2py.operations import Follow
-from sc2py.operations import Mute
-from sc2py.operations import Reblog
-from sc2py.operations import DeleteComment
-from sc2py.operations import ClaimRewardBalance
-from sc2py.operations import Comment
-from sc2py.operations import CommentOptions
+from steemconnect.client import Client
+from steemconnect.steemconnect import SteemConnect
+from steemconnect.operations import Vote
+from steemconnect.operations import CustomJson
+from steemconnect.operations import Unfollow
+from steemconnect.operations import Follow
+from steemconnect.operations import Mute
+from steemconnect.operations import Reblog
+from steemconnect.operations import DeleteComment
+from steemconnect.operations import ClaimRewardBalance
+from steemconnect.operations import Comment
+from steemconnect.operations import CommentOptions
 
 c = Client(client_id:str, redirect_url:str, code=False, scope=None)
 # scope is None : default scopes = "login,offline,vote,comment,delete_comment,comment_options,custom_json,claim_reward_balance"

@@ -22,17 +22,17 @@ and this post
 
 ```python
 from sc2py.client import Client
-from sc2py.sc2py import Sc2
+from sc2py.steemconnect import SteemConnect
 from sc2py.operations import Vote
 from sc2py.operations import CustomJson
 from sc2py.operations import Unfollow
 from sc2py.operations import Follow
 from sc2py.operations import Mute
 from sc2py.operations import Reblog
-from sc2py.operations import Comment
 from sc2py.operations import DeleteComment
 from sc2py.operations import ClaimRewardBalance
-from sc2py.operations import Operations
+from sc2py.operations import Comment
+from sc2py.operations import CommentOptions
 
 c = Client(client_id:str, redirect_url:str, code=False, scope=None)
 # scope is None : default scopes = "login,offline,vote,comment,delete_comment,comment_options,custom_json,claim_reward_balance"
@@ -51,8 +51,7 @@ The Vote() method will cast a vote on the specified post or comment from the cur
 
 ```python
 vote = Vote(voter:str, author:str, permlink:str, weight:int)
-json_data = Operations(json=vote.json).json
-response = Sc2(token="your_access_token", data=json_data).run
+response = Sc2(token="your_access_token", data=vote.operation).run
 if response.status_code == 200:
     print("Your post upvoted")
 ```
@@ -65,51 +64,46 @@ Parameters:
 ### CustomJson
 
 ```python
-custom_json = CustomJson(required_posting_auths:str, id_:str json_:json)
-json_data = Operations(json=custom_json.json).json
-response = Sc2(token="your_access_token", data=json_data).run
+custom_json = CustomJson(required_posting_auths:str, custom_json_id:str, structure:json, required_auths:list)
+response = Sc2(token="your_access_token", data=custom_json.operation).run
 if response.status_code != 200:
-    print(response.text)
+    print("Your operation is success")
 ```
 
 ### Follow
 
 ```python
 follow = Follow(follower:str,following:str)
-json_data = Operations(json=follow.json).json
-response = Sc2(token="your_access_token", data=json_data).run
+response = Sc2(token="your_access_token", data=follow.operation).run
 if response.status_code != 200:
-    print(response.text)
+    print("Your operation is success")
 ```
 
 ### Unfollow
 
 ```python
 unfollow = Unfollow(follower:str,following:str)
-json_data = Operations(json=unfollow.json).json
-response = Sc2(token="your_access_token", data=json_data).run
+response = Sc2(token="your_access_token", data=unfollow.operation).run
 if response.status_code != 200:
-    print(response.text)
+    print("Your operation is success")
 ```
 
 ### Mute
 
 ```python
 mute = Mute(follower:str,following:str)
-json_data = Operations(json=mute.json).json
-response = Sc2(token="your_access_token", data=json_data).run
+response = Sc2(token="your_access_token", data=mute.operation).run
 if response.status_code != 200:
-    print(response.text)
+    print("Your operation is success")
 ```
 
 ### Reblog
 
 ```python
 reblog = Reblog(account:str, author:str, permlink:str)
-json_data = Operations(json=reblog.json).json
-response = Sc2(token="your_access_token", data=json_data).run
+response = Sc2(token="your_access_token", data=reblog.operation).run
 if response.status_code != 200:
-    print(response.text)
+    print("Your operation is success")
 ```
 
 
@@ -117,17 +111,17 @@ if response.status_code != 200:
 
 ```python
 comment = Comment(parent_permlink:str,author:str,permlink:str,title:str,body:str,json_metadata:dict)
-json_data = Operations(json=comment.json).json
-response = Sc2(token="your_access_token", data=json_data).run
+response = Sc2(token="your_access_token", data=comment.operation).run
 if response.status_code != 200:
-    print(response.text)
+    print("Your operation is success")
 ```
 
 ### Comment with Comment_options
 
 ```python
-comment = Comment(parent_permlink:str, author:str, permlink:str, title:str, body:str, json_metadata:dict)
-comment_options = comment.comment_options(
+comment_class = Comment(parent_permlink:str, author:str, permlink:str, title:str, body:str, json_metadata:dict)
+comment_options = CommentOptions(
+    comment_class = comment_class
     beneficiaries,
     max_accepted_payout:int, # default 100000.000
     percent_steem_dollars:int, # default 10000
@@ -142,28 +136,25 @@ comment_options = comment.comment_options(
   {"account":"hakancelik","weight":500}
 ]"""
 
-json_data = Operations(json=comment_options).json
-response = Sc2(token="your_access_token", data=json_data).run
+response = Sc2(token="your_access_token", data=comment_options.operation).run
 if response.status_code != 200:
-    print(response.text)
+    print("Your operation is success")
 ```
 
 ### DeleteComment
 
 ```python
 delete_comment = DeleteComment(author:str, permlink:str)
-json_data = Operations(json=delete_comment.json).json
-response = Sc2(token="your_access_token", data=json_data).run
+response = Sc2(token="your_access_token", data=delete_comment.operation).run
 if response.status_code != 200:
-    print(response.text)
+    print("Your operation is success")
 ```
 
 ### ClaimRewardBalance
 
 ```python
 claim_reward_balance = ClaimRewardBalance(account:str, reward_steem:str, reward_sbd:str, reward_vests:str)
-json_data = Operations(json=claim_reward_balance.json).json
-response = Sc2(token="your_access_token", data=json_data).run
+response = Sc2(token="your_access_token", data=claim_reward_balance.operation).run
 if response.status_code != 200:
-    print(response.text)
+    print("Your operation is success")
 ```

@@ -1,7 +1,7 @@
 import requests
 
 
-class Sc2:
+class SteemConnect:
 
     def __init__(self, token, data):
         self.token = token
@@ -19,5 +19,4 @@ class Sc2:
         return requests.post(
             self.broadcast_api,
             data=self.data,
-            headers=self.headers
-        )
+            headers=self.headers)

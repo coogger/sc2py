@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="sc2py",
-    version = "0.7",
+    version = "0.7.2",
     packages = ["sc2py"],
     description = "SteemConnect2 with pyhton",
     author = "Hakan Çelik",

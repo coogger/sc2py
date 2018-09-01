@@ -12,12 +12,10 @@ class Client:
 
     @staticmethod
     def scopes():
-        return "login, offline, vote, comment, delete_comment\
-        , comment_options, custom_json, claim_reward_balance"
+        return "login, offline, vote, comment, delete_comment, comment_options, custom_json, claim_reward_balance"
 
     def get_authorize_url(self):
-        api = "https://steemconnect.com/oauth2/authorize?client_id={}\
-        &redirect_uri={}&scope={}".format(
+        api = "https://steemconnect.com/oauth2/authorize?client_id={}&redirect_uri={}&scope={}".format(
             self.client_id, self.redirect_url, self.scope
             )
         if self.code:
@@ -30,8 +28,7 @@ class Client:
         "tokens['access_token']"
         "tokens['username']"
         "tokens['refresh_token']"
-        token_api = "https://steemconnect.com/api/oauth2/token?code={}\
-            &client_secret={}".format(code, app_secret)
+        token_api = "https://steemconnect.com/api/oauth2/token?code={}&client_secret={}".format(code, app_secret)
         return requests.post(token_api).json()
 
     @staticmethod

@@ -51,7 +51,7 @@ The Vote() method will cast a vote on the specified post or comment from the cur
 
 ```python
 vote = Vote(voter:str, author:str, permlink:str, weight:int)
-response = Sc2(token="your_access_token", data=vote.operation).run
+response = SteemConnect(token="your_access_token", data=vote.operation).run
 if response.status_code == 200:
     print("Your post upvoted")
 ```
@@ -65,7 +65,7 @@ Parameters:
 
 ```python
 custom_json = CustomJson(required_posting_auths:str, custom_json_id:str, structure:json, required_auths:list)
-response = Sc2(token="your_access_token", data=custom_json.operation).run
+response = SteemConnect(token="your_access_token", data=custom_json.operation).run
 if response.status_code != 200:
     print("Your operation is success")
 ```
@@ -74,7 +74,7 @@ if response.status_code != 200:
 
 ```python
 follow = Follow(follower:str,following:str)
-response = Sc2(token="your_access_token", data=follow.operation).run
+response = SteemConnect(token="your_access_token", data=follow.operation).run
 if response.status_code != 200:
     print("Your operation is success")
 ```
@@ -83,7 +83,7 @@ if response.status_code != 200:
 
 ```python
 unfollow = Unfollow(follower:str,following:str)
-response = Sc2(token="your_access_token", data=unfollow.operation).run
+response = SteemConnect(token="your_access_token", data=unfollow.operation).run
 if response.status_code != 200:
     print("Your operation is success")
 ```
@@ -92,7 +92,7 @@ if response.status_code != 200:
 
 ```python
 mute = Mute(follower:str,following:str)
-response = Sc2(token="your_access_token", data=mute.operation).run
+response = SteemConnect(token="your_access_token", data=mute.operation).run
 if response.status_code != 200:
     print("Your operation is success")
 ```
@@ -101,7 +101,7 @@ if response.status_code != 200:
 
 ```python
 reblog = Reblog(account:str, author:str, permlink:str)
-response = Sc2(token="your_access_token", data=reblog.operation).run
+response = SteemConnect(token="your_access_token", data=reblog.operation).run
 if response.status_code != 200:
     print("Your operation is success")
 ```
@@ -111,7 +111,7 @@ if response.status_code != 200:
 
 ```python
 comment = Comment(parent_permlink:str,author:str,permlink:str,title:str,body:str,json_metadata:dict)
-response = Sc2(token="your_access_token", data=comment.operation).run
+response = SteemConnect(token="your_access_token", data=comment.operation).run
 if response.status_code != 200:
     print("Your operation is success")
 ```
@@ -136,7 +136,7 @@ comment_options = CommentOptions(
   {"account":"hakancelik","weight":500}
 ]"""
 
-response = Sc2(token="your_access_token", data=comment_options.operation).run
+response = SteemConnect(token="your_access_token", data=comment_options.operation).run
 if response.status_code != 200:
     print("Your operation is success")
 ```
@@ -145,7 +145,7 @@ if response.status_code != 200:
 
 ```python
 delete_comment = DeleteComment(author:str, permlink:str)
-response = Sc2(token="your_access_token", data=delete_comment.operation).run
+response = SteemConnect(token="your_access_token", data=delete_comment.operation).run
 if response.status_code != 200:
     print("Your operation is success")
 ```
@@ -154,7 +154,7 @@ if response.status_code != 200:
 
 ```python
 claim_reward_balance = ClaimRewardBalance(account:str, reward_steem:str, reward_sbd:str, reward_vests:str)
-response = Sc2(token="your_access_token", data=claim_reward_balance.operation).run
+response = SteemConnect(token="your_access_token", data=claim_reward_balance.operation).run
 if response.status_code != 200:
     print("Your operation is success")
 ```

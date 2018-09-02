@@ -1,14 +1,16 @@
 # steemconnect
-SteemConnect with pyhton
+>The first python client of the SteemConnect
 
 ## Getting Started
-For general information about SteemConnect V2 and setting up your app please see
-this post from @noisy:
-- [How to configure SteemConnect v2 and use it with your application](https://busy.org/steemconnect/@noisy/how-to-configure-steemconnect-v2-and-use-it-with-your-application-how-it-works-and-how-it-is-different-from-v1)
-and this post
-- [ann-introducing-python-social-auth-steemconnect-library-integrate-steemconnect-v2-in-your-python-app-in-5-minutes-design-pack-as](https://steemit.com/steemconnect/@noisy/ann-introducing-python-social-auth-steemconnect-library-integrate-steemconnect-v2-in-your-python-app-in-5-minutes-design-pack-as)
+- **For general information about SteemConnect V2 and setting up your app please see
+this post from @noisy**
+>[How to configure SteemConnect v2 and use it with your application](https://busy.org/steemconnect/@noisy/how-to-configure-steemconnect-v2-and-use-it-with-your-application-how-it-works-and-how-it-is-different-from-v1)
 
-- [Django application - django_steemconnect](https://github.com/hakancelik96/django_steemconnect)
+	>[ann-introducing-python-social-auth-steemconnect-library-integrate-steemconnect-v2-in-your-python-app-in-5-minutes-design-pack-as](https://steemit.com/steemconnect/@noisy/ann-introducing-python-social-auth-steemconnect-library-integrate-steemconnect-v2-in-your-python-app-in-5-minutes-design-pack-as)
+
+- **check this repository if you are looking for a python or django example that uses this library.**
+>[Django application - django_steemconnect](https://github.com/hakancelik96/django_steemconnect)
+[Coogger-python | upvote bot](https://github.com/coogger/coogger-python)
 
 ### Installation
 `pip install steem-connect`

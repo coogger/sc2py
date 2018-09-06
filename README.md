@@ -5,8 +5,7 @@
 - **For general information about SteemConnect V2 and setting up your app please see
 this post from @noisy**
 >[How to configure SteemConnect v2 and use it with your application](https://busy.org/steemconnect/@noisy/how-to-configure-steemconnect-v2-and-use-it-with-your-application-how-it-works-and-how-it-is-different-from-v1)
-
-	>[ann-introducing-python-social-auth-steemconnect-library-integrate-steemconnect-v2-in-your-python-app-in-5-minutes-design-pack-as](https://steemit.com/steemconnect/@noisy/ann-introducing-python-social-auth-steemconnect-library-integrate-steemconnect-v2-in-your-python-app-in-5-minutes-design-pack-as)
+>[ann-introducing-python-social-auth-steemconnect-library-integrate-steemconnect-v2-in-your-python-app-in-5-minutes-design-pack-as](https://steemit.com/steemconnect/@noisy/ann-introducing-python-social-auth-steemconnect-library-integrate-steemconnect-v2-in-your-python-app-in-5-minutes-design-pack-as)
 
 - **check this repository if you are looking for a python or django example that uses this library.**
 >[Django application - django_steemconnect](https://github.com/hakancelik96/django_steemconnect)
@@ -68,7 +67,7 @@ Parameters:
 ```python
 custom_json = CustomJson(required_posting_auths:str, custom_json_id:str, structure:json, required_auths:list)
 response = SteemConnect(token="your_access_token", data=custom_json.operation).run
-if response.status_code != 200:
+if response.status_code == 200:
     print("Your operation is success")
 ```
 
@@ -77,7 +76,7 @@ if response.status_code != 200:
 ```python
 follow = Follow(follower:str,following:str)
 response = SteemConnect(token="your_access_token", data=follow.operation).run
-if response.status_code != 200:
+if response.status_code == 200:
     print("Your operation is success")
 ```
 
@@ -86,7 +85,7 @@ if response.status_code != 200:
 ```python
 unfollow = Unfollow(follower:str,following:str)
 response = SteemConnect(token="your_access_token", data=unfollow.operation).run
-if response.status_code != 200:
+if response.status_code == 200:
     print("Your operation is success")
 ```
 
@@ -95,7 +94,7 @@ if response.status_code != 200:
 ```python
 mute = Mute(follower:str,following:str)
 response = SteemConnect(token="your_access_token", data=mute.operation).run
-if response.status_code != 200:
+if response.status_code == 200:
     print("Your operation is success")
 ```
 
@@ -104,7 +103,7 @@ if response.status_code != 200:
 ```python
 reblog = Reblog(account:str, author:str, permlink:str)
 response = SteemConnect(token="your_access_token", data=reblog.operation).run
-if response.status_code != 200:
+if response.status_code == 200:
     print("Your operation is success")
 ```
 
@@ -112,9 +111,9 @@ if response.status_code != 200:
 ### Comment
 
 ```python
-comment = Comment(parent_permlink:str,author:str,permlink:str,title:str,body:str,json_metadata:dict)
+comment = Comment(parent_author:str, parent_permlink:str,author:str,permlink:str,title:str,body:str,json_metadata:dict)
 response = SteemConnect(token="your_access_token", data=comment.operation).run
-if response.status_code != 200:
+if response.status_code == 200:
     print("Your operation is success")
 ```
 
@@ -139,7 +138,7 @@ comment_options = CommentOptions(
 ]"""
 
 response = SteemConnect(token="your_access_token", data=comment_options.operation).run
-if response.status_code != 200:
+if response.status_code == 200:
     print("Your operation is success")
 ```
 
@@ -148,7 +147,7 @@ if response.status_code != 200:
 ```python
 delete_comment = DeleteComment(author:str, permlink:str)
 response = SteemConnect(token="your_access_token", data=delete_comment.operation).run
-if response.status_code != 200:
+if response.status_code == 200:
     print("Your operation is success")
 ```
 
@@ -157,6 +156,6 @@ if response.status_code != 200:
 ```python
 claim_reward_balance = ClaimRewardBalance(account:str, reward_steem:str, reward_sbd:str, reward_vests:str)
 response = SteemConnect(token="your_access_token", data=claim_reward_balance.operation).run
-if response.status_code != 200:
+if response.status_code == 200:
     print("Your operation is success")
 ```

@@ -22,9 +22,9 @@ class Vote(Operations):
                 [
                     "vote",
                     {
-                        "voter": "{}".format(self.voter),
-                        "author": "{}".format(self.author),
-                        "permlink": "{}".format(self.permlink),
+                        "voter": f"{self.voter}",
+                        "author": f"{self.author}",
+                        "permlink": f"{self.permlink}",
                         "weight": self.weight * 100
                         }
                     ]
@@ -50,8 +50,8 @@ class CustomJson(Operations):
                     "custom_json",
                     {
                         "required_auths": self.required_auths,
-                        "required_posting_auths":["{}".format(self.required_posting_auths)],
-                        "id":"{}".format(self.custom_json_id),
+                        "required_posting_auths":[f"{self.required_posting_auths}"],
+                        "id":f"{self.custom_json_id}",
                         "json":json.dumps(self.structure)
                         }
                     ]
@@ -147,8 +147,9 @@ class ClaimRewardBalance(Operations):
 
 class Comment(Operations):
 
-    def __init__(self, parent_permlink, author,
+    def __init__(self, parent_author="", parent_permlink, author,
                 permlink, title, body, json_metadata):
+        self.parent_author = parent_author
         self.parent_permlink = parent_permlink
         self.author = author
         self.permlink = permlink
@@ -164,12 +165,12 @@ class Comment(Operations):
     def get_json_data(self):
         return [
             "comment",{
-                "parent_author": "",
-                "parent_permlink": "{}".format(self.parent_permlink),
-                "author": "{}".format(self.author),
-                "permlink": "{}".format(self.permlink),
-                "title": "{}".format(self.title),
-                "body": "{}".format(self.body),
+                "parent_author": f"{self.parent_author}",
+                "parent_permlink": f"{self.parent_permlink}",
+                "author": f"{self.author}",
+                "permlink": f"{self.permlink}",
+                "title": f"{self.title}",
+                "body": f"{self.body}",
                 "json_metadata": json.dumps(self.json_metadata)}
             ]
 
@@ -193,10 +194,10 @@ class CommentOptions(Operations):
             [self.comment_class.get_json_data, [
                 "comment_options",
                 {
-                    "author": "{}".format(self.author),
-                    "permlink": "{}".format(self.permlink),
-                    "max_accepted_payout": "100000.000 SBD",
-                    "percent_steem_dollars": 10000,
+                    "author": f"{self.author}",
+                    "permlink": f"{self.permlink}",
+                    "max_accepted_payout": f"{self.max_accepted_payout} SBD",
+                    "percent_steem_dollars": self.percent_steem_dollars,
                     "allow_votes": True,
                     "allow_curation_rewards": True,
                     "extensions": [[0, {"beneficiaries": self.beneficiaries}]]

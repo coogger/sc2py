@@ -147,7 +147,7 @@ class ClaimRewardBalance(Operations):
 
 class Comment(Operations):
 
-    def __init__(self, parent_author="", parent_permlink, author,
+    def __init__(self, parent_author, parent_permlink, author,
                 permlink, title, body, json_metadata):
         self.parent_author = parent_author
         self.parent_permlink = parent_permlink
@@ -171,37 +171,39 @@ class Comment(Operations):
                 "permlink": f"{self.permlink}",
                 "title": f"{self.title}",
                 "body": f"{self.body}",
-                "json_metadata": json.dumps(self.json_metadata)}
-            ]
+                "json_metadata": json.dumps(self.json_metadata)
+            }
+        ]
 
 
 class CommentOptions(Operations):
 
-    def __init__(self, comment_class=None, beneficiaries=None, max_accepted_payout=100000.000,
-                 percent_steem_dollars=10000, allow_votes=True, allow_curation_rewards=True):
-        self.comment_class = comment_class
-        self.author = comment_class.author
-        self.permlink = comment_class.permlink
+    def __init__(self, parent_comment=None, beneficiaries=None, max_accepted_payout=None,
+                 percent_steem_dollars=None, allow_votes=True, allow_curation_rewards=True):
+        self.parent_comment = parent_comment
+        self.author = parent_comment.author
+        self.permlink = parent_comment.permlink
         self.beneficiaries = beneficiaries or ""
-        self.max_accepted_payout = max_accepted_payout
-        self.percent_steem_dollars = percent_steem_dollars
+        self.max_accepted_payout = max_accepted_payout or "100000.000 SBD"
+        self.percent_steem_dollars = percent_steem_dollars or 10000
         self.allow_votes = allow_votes
         self.allow_curation_rewards = allow_curation_rewards
 
     @property
     def operation(self):
-        return self.operations_structure(
-            [self.comment_class.get_json_data, [
-                "comment_options",
+        a = [self.parent_comment.get_json_data, self.get_json_data]
+        return json.dumps({"operations": a,}).encode(encoding='utf-8')
+
+
+    @property
+    def get_json_data(self):
+        return ["comment_options",
                 {
                     "author": f"{self.author}",
                     "permlink": f"{self.permlink}",
-                    "max_accepted_payout": f"{self.max_accepted_payout} SBD",
+                    "max_accepted_payout": self.max_accepted_payout,
                     "percent_steem_dollars": self.percent_steem_dollars,
-                    "allow_votes": True,
-                    "allow_curation_rewards": True,
+                    "allow_votes": self.allow_votes,
+                    "allow_curation_rewards": self.allow_curation_rewards,
                     "extensions": [[0, {"beneficiaries": self.beneficiaries}]]
-                    }
-                ]
-             ]
-            )
+                }]

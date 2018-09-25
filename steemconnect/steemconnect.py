@@ -6,7 +6,7 @@ class SteemConnect:
     def __init__(self, token, data):
         self.token = token
         self.data = data
-        self.broadcast_api = "https://v2.steemconnect.com/api/broadcast"
+        self.broadcast_api = "https://steemconnect.com/api/broadcast"
         self.headers = {
             "content-type": "application/json; charset=utf-8",
             "Accept": "application/json",

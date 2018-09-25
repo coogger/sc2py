@@ -6,7 +6,7 @@ def read(fname):
 
 setup(
     name="steem-connect",
-    version = "0.7.4",
+    version = "0.7.6",
     packages = ["steemconnect"],
     description = "SteemConnect with pyhton",
     author = "Hakan Çelik",

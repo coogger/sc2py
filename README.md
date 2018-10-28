@@ -1,3 +1,7 @@
+[Join and Contact us on Discord](https://discord.gg/avmdZJa)
+
+------
+
 # steemconnect
 >The first python client of the SteemConnect
 

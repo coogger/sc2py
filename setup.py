@@ -14,6 +14,7 @@ setup(
     url = "https://github.com/hakancelik96/steemconnect",
     python_requires='>=3.5.0',
     long_description=read('README.md'),
+    long_description_content_type="text/markdown",
     py_modules=['steemconnect'],
     include_package_data = True,
     install_requires = ["requests"],
